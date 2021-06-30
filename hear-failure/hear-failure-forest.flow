@@ -1,0 +1,45 @@
+{
+  "version": "1.0.0",
+  "cells": [
+    {
+      "type": "cs",
+      "input": "assist"
+    },
+    {
+      "type": "cs",
+      "input": "importFiles"
+    },
+    {
+      "type": "cs",
+      "input": "importFiles [ \"/home/emile/IdeaProjects/MachineLearning/heart-failure-clinical/heart_failure_clinical_records_dataset.csv\" ]"
+    },
+    {
+      "type": "cs",
+      "input": "setupParse source_frames: [ \"nfs://home/emile/IdeaProjects/MachineLearning/heart-failure-clinical/heart_failure_clinical_records_dataset.csv\" ]"
+    },
+    {
+      "type": "cs",
+      "input": "parseFiles\n  source_frames: [\"nfs://home/emile/IdeaProjects/MachineLearning/heart-failure-clinical/heart_failure_clinical_records_dataset.csv\"]\n  destination_frame: \"heart_failure_clinical_records_dataset.hex\"\n  parse_type: \"CSV\"\n  separator: 44\n  number_columns: 13\n  single_quotes: false\n  column_names: [\"age\",\"anaemia\",\"creatinine_phosphokinase\",\"diabetes\",\"ejection_fraction\",\"high_blood_pressure\",\"platelets\",\"serum_creatinine\",\"serum_sodium\",\"sex\",\"smoking\",\"time\",\"DEATH_EVENT\"]\n  column_types: [\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Enum\"]\n  delete_on_done: true\n  check_header: 1\n  chunk_size: 4194304"
+    },
+    {
+      "type": "cs",
+      "input": "splitFrame"
+    },
+    {
+      "type": "cs",
+      "input": "splitFrame \"heart_failure_clinical_records_dataset.hex\", [0.75], [\"frame_0.750\",\"frame_0.250\"], 84430"
+    },
+    {
+      "type": "cs",
+      "input": "buildModel \"drf\""
+    },
+    {
+      "type": "cs",
+      "input": "buildModel 'drf', {\"model_id\":\"drf-f34dbe57-f20f-475f-b00e-7fce671ebde1\",\"training_frame\":\"frame_0.750\",\"validation_frame\":\"frame_0.250\",\"nfolds\":0,\"response_column\":\"DEATH_EVENT\",\"ignored_columns\":[],\"ignore_const_cols\":true,\"ntrees\":50,\"max_depth\":20,\"min_rows\":1,\"nbins\":20,\"seed\":-1,\"mtries\":-1,\"sample_rate\":0.632,\"score_each_iteration\":false,\"score_tree_interval\":0,\"balance_classes\":true,\"nbins_top_level\":1024,\"nbins_cats\":1024,\"r2_stopping\":1.7976931348623157e+308,\"stopping_rounds\":0,\"stopping_metric\":\"AUTO\",\"stopping_tolerance\":0.001,\"max_runtime_secs\":0,\"col_sample_rate_per_tree\":1,\"min_split_improvement\":0.00001,\"histogram_type\":\"AUTO\",\"categorical_encoding\":\"AUTO\",\"distribution\":\"AUTO\",\"gainslift_bins\":-1,\"auc_type\":\"AUTO\",\"class_sampling_factors\":[],\"max_after_balance_size\":5,\"build_tree_one_node\":false,\"sample_rate_per_class\":[],\"binomial_double_trees\":false,\"col_sample_rate_change_per_level\":1,\"calibrate_model\":false,\"calibration_frame\":\"frame_0.250\",\"check_constant_response\":true}"
+    },
+    {
+      "type": "cs",
+      "input": "getModel \"drf-f34dbe57-f20f-475f-b00e-7fce671ebde1\""
+    }
+  ]
+}
